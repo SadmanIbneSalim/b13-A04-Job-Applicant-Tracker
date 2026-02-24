@@ -100,7 +100,8 @@ mainContainer.addEventListener('click',function(event){
         condition: 'Interview',
         description
     }
-    
+    // remove from rejection if exists
+rejection = rejection.filter(item => item.companyName !== companyName);
 
     
     const companyExist=interview.find(item=> item.companyName ==cardInfo.companyName);
@@ -115,7 +116,7 @@ mainContainer.addEventListener('click',function(event){
      if(condition=='rejected-btn'){
          renderRejection();
         }
-       parentNode.remove();
+    //    parentNode.remove();
 calculateCount();
 
 if(condition === 'rejected-btn'){
@@ -147,7 +148,8 @@ if(condition === 'rejected-btn'){
         condition: 'Rejected',
         description
     }
-   
+   // remove from interview if exists
+interview = interview.filter(item => item.companyName !== companyName);
 
     
     const companyExist=rejection.find(item=> item.companyName ==cardInfo.companyName);
@@ -164,7 +166,7 @@ if(condition === 'rejected-btn'){
     }
     
     
-     parentNode.remove();
+    //  parentNode.remove();
 calculateCount();
 
 if(condition === 'rejected-btn'){
@@ -201,8 +203,8 @@ function renderRejection(){
           </p>
           <!-- buttons of card -->
           <div>
-            <button class="btn btn-success btn-outline">Interview</button>
-            <button class="btn btn-error btn-outline">Rejected</button>
+            <button class="card-btn-interview btn btn-success btn-outline">Interview</button>
+<button class="card-btn-rejected btn btn-error btn-outline">Rejected</button>
           </div>
         </div>`
         filteredSection.appendChild(div)
@@ -232,18 +234,18 @@ function renderInterview(){
 
          <h3 class="btn pointer-events-none condition">${i.condition}</h3>
           <p class="description">
-            Create stunning web experiences for high-profile clients. Must have
-            portfolio and experience with modern web design trends.
+            ${i.description}
           </p>
           <!-- buttons of card -->
           <div>
-            <button class="btn btn-success btn-outline">Interview</button>
-            <button class="btn btn-error btn-outline">Rejected</button>
+            <button class="card-btn-interview btn btn-success btn-outline">Interview</button>
+<button class="card-btn-rejected btn btn-error btn-outline">Rejected</button>
           </div>
         </div>`
         filteredSection.appendChild(div)
     }
 }
+
 
 
 
