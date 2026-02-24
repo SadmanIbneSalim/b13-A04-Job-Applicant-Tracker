@@ -1,5 +1,6 @@
 let interview=[];
 let rejection=[];
+let condition= 'all'
 
 // counts--->>==============================
 
@@ -33,6 +34,7 @@ function calculateCount() {
 calculateCount();
 
 
+// toggleBtn
 
 function toggleBtn(id){
     
@@ -47,6 +49,8 @@ function toggleBtn(id){
 
 
      const selected=document.getElementById(id);
+     condition=id;
+     console.log('condition')
      
      
 
@@ -54,22 +58,24 @@ function toggleBtn(id){
 
      if(id=='interview-btn'){
         allJobs.classList.add('hidden')
-        filteredSection.classList.remove('hidden')
+        filteredSection.classList.remove('hidden');
+        renderInterview();
     }else if(id=='all-btn'){
          allJobs.classList.remove('hidden')
          filteredSection.classList.add('hidden')  
      }
      else if(id=="rejected-btn"){
         allJobs.classList.add('hidden')
-        filteredSection.classList.remove('hidden')
+        filteredSection.classList.remove('hidden');
+        renderRejection();
      }
 
 }
 
 mainContainer.addEventListener('click',function(event){
-    console.log(event.target.classList.contains('card-btn-interview'));
     
     
+    // interview button
         
     if(event.target.classList.contains('card-btn-interview')){
 
@@ -80,7 +86,7 @@ mainContainer.addEventListener('click',function(event){
     const location=parentNode.querySelector('.location').innerText;
     const type=parentNode.querySelector('.type').innerText;
     const salary=parentNode.querySelector('.salary').innerText;
-    const condition=parentNode.querySelector('.condition').innerText
+    const cardCondition=parentNode.querySelector('.condition').innerText
     const description=parentNode.querySelector('.description').innerText;
     parentNode.querySelector('.condition').innerText='interview';
    
@@ -91,21 +97,33 @@ mainContainer.addEventListener('click',function(event){
         location,
         type,
         salary,
-        condition:'Interview',
+        condition: 'Interview',
         description
     }
-    console.log(cardInfo)
+    
 
     
     const companyExist=interview.find(item=> item.companyName ==cardInfo.companyName);
+
     if(!companyExist){
-        interview.push(cardInfo)
+        interview.push(cardInfo);
     
     }
-    calculateCount();
-    renderInterview();
 
+    //  interview=interview.filter(item=>item.companyName != cardInfo.companyName);
+     
+     if(condition=='rejected-btn'){
+         renderRejection();
+        }
+       parentNode.remove();
+calculateCount();
+
+if(condition === 'rejected-btn'){
+    renderRejection();
+}
     }
+    // rejected button
+    
     else if(event.target.classList.contains('card-btn-rejected')){
 
         const parentNode=event.target.parentNode.parentNode;
@@ -115,7 +133,7 @@ mainContainer.addEventListener('click',function(event){
     const location=parentNode.querySelector('.location').innerText;
     const type=parentNode.querySelector('.type').innerText;
     const salary=parentNode.querySelector('.salary').innerText;
-    const condition=parentNode.querySelector('.condition').innerText
+    const cardCondition=parentNode.querySelector('.condition').innerText
     const description=parentNode.querySelector('.description').innerText;
     parentNode.querySelector('.condition').innerText='Rejected';
    
@@ -126,35 +144,45 @@ mainContainer.addEventListener('click',function(event){
         location,
         type,
         salary,
-        condition:'Rejected',
+        condition: 'Rejected',
         description
     }
-    console.log(cardInfo)
+   
 
     
     const companyExist=rejection.find(item=> item.companyName ==cardInfo.companyName);
+
     if(!companyExist){
-        rejection.push(cardInfo)
+        rejection.push(cardInfo);
     
     }
-    calculateCount();
-    renderRejection();
-    
-    
+    // rejection=rejection.filter(item=>item.companyName !=cardInfo.companyName);
+
+    if(condition=="rejected-btn"){
+        renderRejection();
 
     }
+    
+    
+     parentNode.remove();
+calculateCount();
+
+if(condition === 'rejected-btn'){
+    renderRejection();
+}
+}
 });
 
 function renderRejection(){
-    filteredSection.innerHTML = ''
+    filteredSection.innerHTML = '';
     for(let i of rejection){
         let div=document.createElement('div');
         div.innerHTML=`
          <div id="card-container" class="space-y-2 p-8 bg-white rounded-[8px]">
           <div class="flex justify-between">
             <div>
-              <h2  class="company-name text-[#002C5C] text-lg  ">${i.companyName}
-              <h3 class="text-neutral/60 position">${i.position}</h3>
+              <h2 class="company-name text-[#002C5C] text-lg">${i.companyName}</h2>
+<h3 class="text-neutral/60 position">${i.position}</h3>
             </div>
             <!-- icon -->
             <button class="bg-white p-3 rounded-full btn hover:border-red-600">
@@ -167,7 +195,7 @@ function renderRejection(){
              <span class="salary"> ${i.salary}</span> 
           </h4>
 
-          <h3 class="btn pointer-events-none condition">Not Applied</h3>
+          <h3 class="btn pointer-events-none condition">${i.condition}</h3>
           <p class="description">
             ${i.description}
           </p>
@@ -188,8 +216,8 @@ function renderInterview(){
          <div id="card-container" class="space-y-2 p-8 bg-white rounded-[8px]">
           <div class="flex justify-between">
             <div>
-              <h2  class="company-name text-[#002C5C] text-lg  ">${i.companyName}
-              <h3 class="text-neutral/60 position">${i.position}</h3>
+              <h2 class="company-name text-[#002C5C] text-lg">${i.companyName}</h2>
+<h3 class="text-neutral/60 position">${i.position}</h3>
             </div>
             <!-- icon -->
             <button class="bg-white p-3 rounded-full btn hover:border-red-600">
@@ -202,7 +230,7 @@ function renderInterview(){
              <span class="salary"> ${i.salary}</span> 
           </h4>
 
-          <h3 class="btn pointer-events-none condition">Not Applied</h3>
+         <h3 class="btn pointer-events-none condition">${i.condition}</h3>
           <p class="description">
             Create stunning web experiences for high-profile clients. Must have
             portfolio and experience with modern web design trends.
