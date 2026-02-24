@@ -57,8 +57,11 @@ function toggleBtn(id){
         filteredSection.classList.remove('hidden')
     }else if(id=='all-btn'){
          allJobs.classList.remove('hidden')
-         filteredSection.classList.add('hidden')
-        
+         filteredSection.classList.add('hidden')  
+     }
+     else if(id=="rejected-btn"){
+        allJobs.classList.add('hidden')
+        filteredSection.classList.remove('hidden')
      }
 
 }
@@ -135,11 +138,48 @@ mainContainer.addEventListener('click',function(event){
     
     }
     calculateCount();
-    renderInterview();
+    renderRejection();
+    
+    
 
     }
 });
 
+function renderRejection(){
+    filteredSection.innerHTML = ''
+    for(let i of rejection){
+        let div=document.createElement('div');
+        div.innerHTML=`
+         <div id="card-container" class="space-y-2 p-8 bg-white rounded-[8px]">
+          <div class="flex justify-between">
+            <div>
+              <h2  class="company-name text-[#002C5C] text-lg  ">${i.companyName}
+              <h3 class="text-neutral/60 position">${i.position}</h3>
+            </div>
+            <!-- icon -->
+            <button class="bg-white p-3 rounded-full btn hover:border-red-600">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+          <h4 class="text-[14px] py-2">
+            <span class="location">${i.location}</span>
+             <span class="type"> ${i.type}</span> 
+             <span class="salary"> ${i.salary}</span> 
+          </h4>
+
+          <h3 class="btn pointer-events-none condition">Not Applied</h3>
+          <p class="description">
+            ${i.description}
+          </p>
+          <!-- buttons of card -->
+          <div>
+            <button class="btn btn-success btn-outline">Interview</button>
+            <button class="btn btn-error btn-outline">Rejected</button>
+          </div>
+        </div>`
+        filteredSection.appendChild(div)
+    }
+}
 function renderInterview(){
     filteredSection.innerHTML = ''
     for(let i of interview){
@@ -149,7 +189,7 @@ function renderInterview(){
           <div class="flex justify-between">
             <div>
               <h2  class="company-name text-[#002C5C] text-lg  ">${i.companyName}
-              <h3 class="text-neutral/60 position">React Native Developer</h3>
+              <h3 class="text-neutral/60 position">${i.position}</h3>
             </div>
             <!-- icon -->
             <button class="bg-white p-3 rounded-full btn hover:border-red-600">
@@ -157,9 +197,9 @@ function renderInterview(){
             </button>
           </div>
           <h4 class="text-[14px] py-2">
-            <span class="location">Remote</span>
-             <span class="type">• Full-time</span> 
-             <span class="salary">• $130,000- $175,000</span> 
+            <span class="location">${i.location}</span>
+             <span class="type"> ${i.type}</span> 
+             <span class="salary"> ${i.salary}</span> 
           </h4>
 
           <h3 class="btn pointer-events-none condition">Not Applied</h3>
