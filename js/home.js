@@ -186,13 +186,13 @@ mainContainer.addEventListener("click", function (event) {
     if (condition == "rejected-btn") {
       renderRejection();
     }
+    if (condition === "interview-btn") {
+      renderInterview();
+    }
+  }
     calculateCount();
     checkEmpty();
 
-    if (condition === "rejected-btn") {
-      renderRejection();
-    }
-  }
   
 });
 
@@ -200,9 +200,11 @@ function renderRejection() {
   filteredSection.innerHTML = "";
   for (let i of rejection) {
     let div = document.createElement("div");
-    div.className = 'card-container space-y-2 p-8 bg-white rounded-[8px]';
+    
+    div.className = 'card-container space-y-2 p-8 bg-white rounded-[8px] border-l-4 border-red-500';
    
     div.innerHTML = `
+    
         
           <div class="flex justify-between">
             <div>
@@ -237,9 +239,10 @@ function renderInterview() {
   filteredSection.innerHTML = "";
   for (let i of interview) {
     let div = document.createElement("div");
+    div.className = "card-container space-y-2 p-8 bg-white rounded-[8px] border-l-4 border-green-500";
     
     div.innerHTML = `
-         <div id="card-container" class="space-y-2 p-8 bg-white rounded-[8px]">
+         
           <div class="flex justify-between">
             <div>
               <h2 class="company-name text-[#002C5C] text-lg">${i.companyName}</h2>
