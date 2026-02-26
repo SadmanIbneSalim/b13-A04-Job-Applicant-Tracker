@@ -110,6 +110,8 @@ mainContainer.addEventListener("click", function (event) {
     parentNode.querySelector(".condition").innerText = "Interview";
     parentNode.classList.remove("border-l-4", "border-red-500");
     parentNode.classList.add("border-l-4", "border-green-500");
+    parentNode.querySelector(".condition").classList.remove("btn-error"); 
+    parentNode.querySelector(".condition").classList.add("btn-success", "text-white");
 
     const cardInfo = {
       companyName,
@@ -158,6 +160,8 @@ mainContainer.addEventListener("click", function (event) {
     parentNode.querySelector(".condition").innerText = "Rejected";
     parentNode.classList.remove("border-l-4", "border-green-500");
     parentNode.classList.add("border-l-4", "border-red-500");
+    parentNode.querySelector(".condition").classList.remove("btn-success"); 
+    parentNode.querySelector(".condition").classList.add("btn-error", "text-white");
 
     const cardInfo = {
       companyName,
@@ -196,7 +200,8 @@ function renderRejection() {
   filteredSection.innerHTML = "";
   for (let i of rejection) {
     let div = document.createElement("div");
-    div.className = "card-container space-y-2 p-8 bg-white rounded-[8px] border-l-4 border-red-500";
+    div.className = 'card-container space-y-2 p-8 bg-white rounded-[8px]';
+   
     div.innerHTML = `
         
           <div class="flex justify-between">
@@ -215,7 +220,7 @@ function renderRejection() {
              <span class="salary"> ${i.salary}</span> 
           </h4>
 
-          <h3 class="btn pointer-events-none condition">${i.condition}</h3>
+          <h3 class="btn btn-error text-white pointer-events-none condition">${i.condition}</h3>
           <p class="description">
             ${i.description}
           </p>
@@ -232,7 +237,7 @@ function renderInterview() {
   filteredSection.innerHTML = "";
   for (let i of interview) {
     let div = document.createElement("div");
-     div.className = "card-container space-y-2 p-8 bg-white rounded-[8px] border-l-4 border-green-500";
+    
     div.innerHTML = `
          <div id="card-container" class="space-y-2 p-8 bg-white rounded-[8px]">
           <div class="flex justify-between">
@@ -251,7 +256,7 @@ function renderInterview() {
              <span class="salary"> ${i.salary}</span> 
           </h4>
 
-         <h3 class="btn pointer-events-none condition">${i.condition}</h3>
+        <h3 class="btn btn-success text-white pointer-events-none condition">${i.condition}</h3>
           <p class="description">
             ${i.description}
           </p>
